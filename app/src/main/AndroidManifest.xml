@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pavement.kobus">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-feature android:glEsVersion="20000" android:required="true" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <application android:theme="@style/AppTheme" android:label="@string/app_name" android:icon="@drawable/ic_launcher" android:debuggable="true" android:allowBackup="true">
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+        <activity android:theme="@*android:style/Theme.NoTitleBar.Fullscreen" android:label="@string/app_name" android:name="com.example.busclient.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name="com.example.busclient.MyService" />
+        <activity android:name="com.example.busclient.BusTimetable" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.BusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.CheonanBusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.TerminalBusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.DujeongBusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.KTXBusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.ShinbangBusStop" />
+        <activity android:theme="@style/AppBaseTheme" android:name="com.example.busclient.PassengerNumbers" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAr5UxAELqQENdCce9lnlVtqsrEt21zjMA" />
+        <activity android:theme="@*android:style/Theme.Translucent" android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity android:theme="@style/Theme_IAPTheme" android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity" />
+        <provider android:name="com.google.android.gms.measurement.AppMeasurementContentProvider" android:exported="false" android:authorities="com.example.busclient.google_measurement_service" />
+        <receiver android:name="com.google.android.gms.measurement.AppMeasurementReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.measurement.UPLOAD" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false" />
+    </application>
+</manifest>

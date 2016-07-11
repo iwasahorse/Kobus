@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="11" android:orientation="1" android:id="@id/intro" android:background="#e2e2e2" android:layout_width="-1" android:layout_height="-1" android:weightSum="10.0">
+    <TextView android:textSize="24dp" android:textColor="#ffffffed" android:gravity="11" android:background="#ff6ab1ff" android:clickable="true" android:layout_width="-1" android:layout_height="0dp" android:text="버스 내부 승객 수 조회" android:layout_weight="1.0" />
+    <Space android:layout_width="-1" android:layout_height="0dp" android:layout_weight="0.5" />
+    <ImageView android:layout_gravity="11" android:id="@id/main_logo" android:padding="20dp" android:layout_width="200dp" android:layout_height="0dp" android:src="@drawable/main_logo" android:scaleType="3" android:layout_weight="3.5" android:layout_centerHorizontal="true" />
+    <TextView android:textAppearance="?unknown_attr_ref: 1010041" android:gravity="13" android:id="@id/inform" android:padding="20dp" android:layout_width="-1" android:layout_height="-2" android:text="노선 선택" android:layout_weight="1.0" />
+    <Spinner android:id="@id/spinner_course" android:padding="12dp" android:layout_width="-1" android:layout_height="0dp" android:layout_weight="1.0" />
+    <Space android:layout_width="-1" android:layout_height="0dp" android:layout_weight="0.5" />
+    <TextView android:textSize="30dp" android:id="@id/textView" android:layout_width="-2" android:layout_height="0dp" android:layout_weight="1.0" />
+    <Button android:textSize="16sp" android:typeface="3" android:textStyle="1" android:textColor="#fffafa" android:id="@id/search" android:background="@drawable/android_button" android:focusable="true" android:layout_width="-2" android:layout_height="0dp" android:text="조회" android:layout_weight="1.0" />
+    <Space android:layout_width="-1" android:layout_height="0dp" android:layout_weight="0.5" />
+</LinearLayout>

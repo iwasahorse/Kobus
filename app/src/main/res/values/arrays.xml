@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_all_stops">
+        <item>@string/univ</item>
+        <item>@string/du_jeong</item>
+        <item>@string/joo_gong</item>
+        <item>@string/work</item>
+        <item>@string/neul</item>
+        <item>@string/seong_jeong</item>
+        <item>@string/elec</item>
+        <item>@string/drugstore</item>
+        <item>@string/shin_bang_apt</item>
+        <item>@string/bank</item>
+        <item>@string/ktx</item>
+        <item>@string/y_city</item>
+        <item>@string/terminal_shin</item>
+        <item>@string/walnut</item>
+        <item>@string/han_hwa</item>
+        <item>@string/yong_am</item>
+        <item>@string/hospital</item>
+        <item>@string/joo_gong7</item>
+        <item>@string/se_jong</item>
+        <item>@string/shin_hyup</item>
+        <item>@string/richard</item>
+        <item>@string/gs</item>
+        <item>@string/je_il</item>
+        <item>@string/south5</item>
+        <item>@string/won_seong</item>
+        <item>@string/sam_ryong</item>
+        <item>@string/guseong</item>
+        <item>@string/cheong_su</item>
+        <item>@string/han_yang</item>
+    </string-array>
+    <string-array name="array_cheonan_stops">
+        <item>@string/univ</item>
+        <item>@string/cheon_an_station</item>
+        <item>@string/south5</item>
+        <item>@string/sam_ryong</item>
+        <item>@string/guseong</item>
+    </string-array>
+    <string-array name="array_course">
+        <item>전체 정류장</item>
+        <item>천안역</item>
+        <item>터미널</item>
+        <item>두정역</item>
+        <item>고속철</item>
+        <item>신방동</item>
+    </string-array>
+    <string-array name="array_course2">
+        <item>천안역</item>
+        <item>터미널</item>
+        <item>두정역</item>
+        <item>고속철</item>
+        <item>신방동</item>
+    </string-array>
+    <string-array name="array_dujeong_stops">
+        <item>@string/univ</item>
+        <item>@string/du_jeong</item>
+        <item>@string/work</item>
+        <item>@string/neul</item>
+        <item>@string/seong_jeong</item>
+        <item>@string/elec</item>
+        <item>@string/drugstore</item>
+        <item>@string/hospital</item>
+        <item>@string/se_jong</item>
+        <item>@string/south5</item>
+        <item>@string/sam_ryong</item>
+        <item>@string/guseong</item>
+    </string-array>
+    <string-array name="array_ktx_stops">
+        <item>@string/univ</item>
+        <item>@string/joo_gong</item>
+        <item>@string/ktx</item>
+        <item>@string/y_city</item>
+        <item>@string/han_hwa</item>
+        <item>@string/yong_am</item>
+        <item>@string/joo_gong7</item>
+        <item>@string/richard</item>
+        <item>@string/gs</item>
+        <item>@string/cheong_dang</item>
+        <item>@string/buyeong</item>
+    </string-array>
+    <string-array name="array_shinbang_stops">
+        <item>@string/univ</item>
+        <item>@string/shin_bang</item>
+        <item>@string/bank</item>
+        <item>@string/hospital</item>
+        <item>@string/se_jong</item>
+        <item>@string/je_il</item>
+        <item>@string/won_seong</item>
+        <item>@string/sam_ryong</item>
+        <item>@string/guseong</item>
+    </string-array>
+    <string-array name="array_terminal_stops">
+        <item>@string/univ</item>
+        <item>@string/terminal</item>
+        <item>@string/shin_hyup</item>
+        <item>@string/je_il</item>
+        <item>@string/won_seong</item>
+        <item>@string/sam_ryong</item>
+        <item>@string/guseong</item>
+    </string-array>
+</resources>
