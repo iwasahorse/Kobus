@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v4.app.NotificationCompat.Builder;
 import android.util.Log;
-import com.google.android.gms.drive.DriveFile;
 import com.google.android.gms.games.GamesStatusCodes;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,54 +20,36 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class MyService extends IntentService {
-    public static final int NOTI_ID = 101;
-    private static AlarmManager alarmManager;
+    public static final int NOTIFICATION_ID = 101;
     private static int alarmOption;
-    private static Intent myIntent;
     private static int port;
-    private static PendingIntent setPi;
     private static double stop_latitude;
     private static double stop_longitude;
     private String altitude;
     private boolean connected;
     private Context context;
-    private double dis;
     private BufferedReader in;
     private String latitude;
     private String longitude;
-    private NotificationManager mNotiMgr;
+    private NotificationManager notificationManager;
     private PrintWriter out;
     private Socket socket;
-
-    public static void setMyIntent(Intent intent) {
-        myIntent = intent;
-    }
 
     public MyService() {
         super("MyService");
         this.connected = false;
     }
 
+    @Override
     public void onCreate() {
         super.onCreate();
-        this.context = getBaseContext();
+        context = getBaseContext();
+
         Log.i("check", "\uc0dd\uc131\ud55c\ub2e4");
-        if (myIntent != null) {
-            try {
-                stop_latitude = myIntent.getDoubleExtra("stop_latitude", stop_latitude);
-                stop_longitude = myIntent.getDoubleExtra("stop_longitude", stop_longitude);
-                port = myIntent.getIntExtra("port", port);
-                alarmOption = myIntent.getIntExtra("alarmOption", alarmOption);
-            } catch (Exception e) {
-                e.printStackTrace();
-                if (isServiceAlarmOn(this.context)) {
-                    setServiceAlarm(this.context, false);
-                }
-            }
-        }
-        this.mNotiMgr = (NotificationManager) getSystemService("notification");
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.i("check", "\ud30c\uad18\ud55c\ub2e4");
@@ -77,28 +58,44 @@ public class MyService extends IntentService {
         }
     }
 
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent != null) {
+            try {
+                stop_latitude = intent.getDoubleExtra("stop_latitude", stop_latitude);
+                stop_longitude = intent.getDoubleExtra("stop_longitude", stop_longitude);
+                port = intent.getIntExtra("port", port);
+                alarmOption = intent.getIntExtra("alarmOption", alarmOption);
+            } catch (Exception e) {
+                e.printStackTrace();
+                if (isServiceAlarmOn(this.context)) {
+                    setServiceAlarm(this.context, false);
+                }
+            }
+        }
         connect(port);
         return super.onStartCommand(intent, flags, startId);
     }
 
+    @Override
     protected void onHandleIntent(Intent intent) {
+        Double distance;
         try {
             interaction();
             if (this.latitude == null || this.longitude == null) {
                 setServiceAlarm(this.context, false);
                 return;
             }
-            this.dis = calDistance(Double.valueOf(this.latitude).doubleValue(), Double.valueOf(this.longitude).doubleValue(), stop_latitude, stop_longitude);
-            Log.i("distance", BuildConfig.VERSION_NAME + this.dis);
-            if (alarmOption == 0 && this.dis >= 0.0d && this.dis <= 800.0d) {
-                noti();
+            distance = calDistance(Double.valueOf(this.latitude), Double.valueOf(this.longitude), stop_latitude, stop_longitude);
+            Log.i("distance", distance.toString());
+            if (alarmOption == 0 && distance >= 0.0d && distance <= 800.0d) {
+                showNotification();
                 setServiceAlarm(this.context, false);
-            } else if (alarmOption == 1 && this.dis > 800.0d && this.dis <= 2400.0d) {
-                noti();
+            } else if (alarmOption == 1 && distance > 800.0d && distance <= 2400.0d) {
+                showNotification();
                 setServiceAlarm(this.context, false);
-            } else if (alarmOption == 2 && this.dis > 2400.0d && this.dis <= 4000.0d) {
-                noti();
+            } else if (alarmOption == 2 && distance > 2400.0d && distance <= 4000.0d) {
+                showNotification();
                 setServiceAlarm(this.context, false);
             }
         } catch (Exception e) {
@@ -107,18 +104,15 @@ public class MyService extends IntentService {
     }
 
     public static boolean isServiceAlarmOn(Context context) {
-        if (PendingIntent.getService(context, 0, new Intent(context, MyService.class), DriveFile.MODE_WRITE_ONLY) != null) {
-            return true;
-        }
-        return false;
+        return (PendingIntent.getService(context, 0, new Intent(context, MyService.class), PendingIntent.FLAG_UPDATE_CURRENT) != null);
     }
 
     public static void setServiceAlarm(Context context, boolean isOn) {
-        setPi = PendingIntent.getService(context, 0, new Intent(context, MyService.class), 0);
-        alarmManager = (AlarmManager) context.getSystemService(NotificationCompatApi21.CATEGORY_ALARM);
+        PendingIntent setPi = PendingIntent.getService(context, 0, new Intent(context, MyService.class), 0);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (isOn) {
             Log.i("check", "setServiceAlarm On");
-            alarmManager.setRepeating(1, System.currentTimeMillis(), 1000, setPi);
+            alarmManager.setRepeating(1, System.currentTimeMillis(), 3000, setPi);
             return;
         }
         Log.i("check", "setServiceAlarm Off");
@@ -126,7 +120,7 @@ public class MyService extends IntentService {
         setPi.cancel();
     }
 
-    public void noti() {
+    public void showNotification() {
         Intent intent;
         switch (port) {
             case 5555:
@@ -139,16 +133,16 @@ public class MyService extends IntentService {
                 intent = new Intent(this, TerminalBusStop.class);
                 break;
             case 8888:
-                intent = new Intent(this, CheonanBusStop.class);
+                intent = new Intent(this, TerminalBusStop.class);
                 break;
             default:
-                intent = new Intent(this, ShinbangBusStop.class);
+                intent = new Intent(this, TerminalBusStop.class);
                 break;
         }
-        Notification noti = new Builder(this).setSmallIcon(C0177R.drawable.ic_bus).setTicker("\ubc84\uc2a4\ub3c4\ucc29\uc804\uc785\ub2c8\ub2e4").setContentTitle("\ubc84\uc2a4\ub3c4\ucc29\uc804\uc785\ub2c8\ub2e4").setContentText("\ubc84\uc2a4\ub3c4\ucc29\uc804\uc785\ub2c8\ub2e4").setWhen(System.currentTimeMillis()).setContentIntent(PendingIntent.getActivity(this, 0, intent, 0)).build();
-        noti.defaults = -1;
-        noti.flags = 20;
-        this.mNotiMgr.notify(NOTI_ID, noti);
+        Notification notification = new Builder(this).setSmallIcon(R.drawable.ic_bus).setTicker("Test1234").setContentTitle("5678").setContentText("abcd").setWhen(System.currentTimeMillis()).setContentIntent(PendingIntent.getActivity(this, 0, intent, 0)).build();
+        notification.defaults = -1;
+        notification.flags = 20;
+        this.notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
     public double calDistance(double lat1, double lon1, double lat2, double lon2) {

@@ -19,7 +19,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.busclient.CourseDialogFragment.DialogListener;
+
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.pavement.kobus.CourseDialogFragment.DialogListener;
 import com.google.android.gms.drive.events.CompletionEvent;
 import com.google.android.gms.games.GamesStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,7 +67,7 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
     private Socket socket;
     private Timer timer;
 
-    /* renamed from: com.example.busclient.TerminalBusStop.2 */
+    /*
     class C01822 implements OnClickListener {
         C01822() {
         }
@@ -75,7 +77,6 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
         }
     }
 
-    /* renamed from: com.example.busclient.TerminalBusStop.3 */
     class C01833 implements OnClickListener {
         C01833() {
         }
@@ -85,7 +86,7 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
         }
     }
 
-    /* renamed from: com.example.busclient.TerminalBusStop.4 */
+
     class C01844 implements OnTouchListener {
         C01844() {
         }
@@ -93,11 +94,10 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
         public boolean onTouch(View v, MotionEvent event) {
             return true;
         }
-    }
+    }*/
 
     public class UpdateGPSTask extends TimerTask {
 
-        /* renamed from: com.example.busclient.TerminalBusStop.UpdateGPSTask.1 */
         class C01851 implements Runnable {
             C01851() {
             }
@@ -109,10 +109,10 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
                     return;
                 }
                 if (TerminalBusStop.this.focused) {
-                    TerminalBusStop.this.myPositionMarker.position(new LatLng(Double.valueOf(TerminalBusStop.this.latitude).doubleValue(), Double.valueOf(TerminalBusStop.this.longitude).doubleValue()));
+                    TerminalBusStop.this.myPositionMarker.position(new LatLng(Double.valueOf(TerminalBusStop.this.latitude), Double.valueOf(TerminalBusStop.this.longitude)));
                 } else {
-                    TerminalBusStop.this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(TerminalBusStop.this.latitude).doubleValue(), Double.valueOf(TerminalBusStop.this.longitude).doubleValue()), 18.0f));
-                    TerminalBusStop.this.myPositionMarker = new MarkerOptions().position(new LatLng(Double.valueOf(TerminalBusStop.this.latitude).doubleValue(), Double.valueOf(TerminalBusStop.this.longitude).doubleValue())).draggable(false).title("\ubc84\uc2a4 \uc704\uce58").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.ic_bus));
+                    TerminalBusStop.this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(TerminalBusStop.this.latitude), Double.valueOf(TerminalBusStop.this.longitude)), 18.0f));
+                    TerminalBusStop.this.myPositionMarker = new MarkerOptions().position(new LatLng(Double.valueOf(TerminalBusStop.this.latitude), Double.valueOf(TerminalBusStop.this.longitude))).draggable(false).title("\ubc84\uc2a4 \uc704\uce58").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_bus));
                     TerminalBusStop.this.focused = true;
                 }
                 if (TerminalBusStop.this.marker != null) {
@@ -128,89 +128,41 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
         }
     }
 
-    /* renamed from: com.example.busclient.TerminalBusStop.1 */
     class C05451 implements OnMarkerClickListener {
         C05451() {
         }
 
         public boolean onMarkerClick(Marker marker) {
             String markerTitle = marker.getTitle();
-            View dialogView = TerminalBusStop.this.getLayoutInflater().inflate(C0177R.layout.default_stop, null);
+            View dialogView = TerminalBusStop.this.getLayoutInflater().inflate(R.layout.default_stop, null);
             Builder builder = new Builder(TerminalBusStop.this.mBusStopLayout.getContext());
-            ImageView imageView = (ImageView) dialogView.findViewById(C0177R.id.default_stop);
+            ImageView imageView = (ImageView) dialogView.findViewById(R.id.default_stop);
             boolean z = true;
             switch (markerTitle.hashCode()) {
-                case -1770635082:
-                    if (markerTitle.equals("\uc81c\uc77c\uace0 \ub9de\uc740\ud3b8")) {
-                        z = true;
-                        break;
-                    }
+                case 0:
+                    imageView.setImageResource(R.drawable.kut_stop);
                     break;
-                case -902510544:
-                    if (markerTitle.equals("\uc131\ud669\ub3d9 \uc2e0\ud611")) {
-                        z = true;
-                        break;
-                    }
+                case 1:
+                    imageView.setImageResource(R.drawable.terminal_stop);
                     break;
-                case 44243764:
-                    if (markerTitle.equals("\uad6c\uc131\ub3d9")) {
-                        z = true;
-                        break;
-                    }
+                case 2:
+                    imageView.setImageResource(R.drawable.seonghwang_stop);
                     break;
-                case 48927307:
-                    if (markerTitle.equals("\uc0bc\ub8e1\uad50")) {
-                        z = true;
-                        break;
-                    }
+                case 3:
+                    imageView.setImageResource(R.drawable.jeilgo_stop);
                     break;
-                case 53000520:
-                    if (markerTitle.equals("\ud130\ubbf8\ub110")) {
-                        z = true;
-                        break;
-                    }
+                case 4:
+                    imageView.setImageResource(R.drawable.wongseonggs_stop);
                     break;
-                case 53917996:
-                    if (markerTitle.equals("\ud55c\uae30\ub300")) {
-                        z = false;
-                        break;
-                    }
+                case 5:
+                    imageView.setImageResource(R.drawable.samryong_stop);
                     break;
-                case 707056484:
-                    if (markerTitle.equals("\uc6d0\uc131\ub3d9 GS\ub9c8\ud2b8")) {
-                        z = true;
-                        break;
-                    }
+                case 6:
+                    imageView.setImageResource(R.drawable.guseonggs_stop);
                     break;
-            }
-            switch (z) {
-                case Phone.UNKNOWN /*0*/:
-                    imageView.setImageResource(C0177R.drawable.kut_stop);
-                    break;
-                case CompletionEvent.STATUS_FAILURE /*1*/:
-                    imageView.setImageResource(C0177R.drawable.terminal_stop);
-                    break;
-                case CompletionEvent.STATUS_CONFLICT /*2*/:
-                    imageView.setImageResource(C0177R.drawable.seonghwang_stop);
-                    break;
-                case CompletionEvent.STATUS_CANCELED /*3*/:
-                    imageView.setImageResource(C0177R.drawable.jeilgo_stop);
-                    break;
-                case Barcode.PHONE /*4*/:
-                    imageView.setImageResource(C0177R.drawable.wongseonggs_stop);
-                    break;
-                case Barcode.PRODUCT /*5*/:
-                    imageView.setImageResource(C0177R.drawable.samryong_stop);
-                    break;
-                case Barcode.SMS /*6*/:
-                    imageView.setImageResource(C0177R.drawable.guseonggs_stop);
-                    break;
-                default:
-                    return false;
             }
             builder.setView(dialogView);
             builder.setTitle(markerTitle);
-            Event.onAlarmOptionSelected(builder, dialogView, marker);
             AlertDialog dialog = builder.create();
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
@@ -240,29 +192,34 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView((int) C0177R.layout.bus_stop_main);
-        this.mBusStopLayout = (ViewGroup) findViewById(C0177R.id.bus_stop_layout);
-        this.mButtonBusLocation = (Button) findViewById(C0177R.id.btn_bus_location);
+        setContentView((int) R.layout.bus_stop_main);
+        this.mBusStopLayout = (ViewGroup) findViewById(R.id.bus_stop_layout);
+        this.mButtonBusLocation = (Button) findViewById(R.id.btn_bus_location);
         setMap();
         connect(7777);
     }
 
     protected void setMap() {
         if (this.mMap == null) {
-            this.mMap = ((MapFragment) getFragmentManager().findFragmentById(C0177R.id.map)).getMap();
-            this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(terminal_stop, 14.0f));
+            ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap googleMap) {
+                    mMap = googleMap;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(terminal_stop, 14.0f));
+                    setStops();
+                }
+            });
         }
-        setStops();
     }
 
     public void setStops() {
-        MarkerOptions kut_stopMarker = new MarkerOptions().position(kut_stop).draggable(false).title("\ud55c\uae30\ub300").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions terminal_stopMarker = new MarkerOptions().position(terminal_stop).draggable(false).title("\ud130\ubbf8\ub110").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions seonghwang_stopMarker = new MarkerOptions().position(seonghwang_stop).draggable(false).title("\uc131\ud669\ub3d9 \uc2e0\ud611").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions jeailgo_stopMarker = new MarkerOptions().position(jeilgo_stop).draggable(false).title("\uc81c\uc77c\uace0 \ub9de\uc740\ud3b8").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions wongseonggs_stopMarker = new MarkerOptions().position(wongseonggs_stop).draggable(false).title("\uc6d0\uc131\ub3d9 GS\ub9c8\ud2b8").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions samyong_stopMarker = new MarkerOptions().position(samyong_stop).draggable(false).title("\uc0bc\ub8e1\uad50").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
-        MarkerOptions guseonggs_stopMarker = new MarkerOptions().position(guseonggs_stop).draggable(false).title("\uad6c\uc131\ub3d9").icon(BitmapDescriptorFactory.fromResource(C0177R.drawable.busstop));
+        MarkerOptions kut_stopMarker = new MarkerOptions().position(kut_stop).draggable(false).title("\ud55c\uae30\ub300").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions terminal_stopMarker = new MarkerOptions().position(terminal_stop).draggable(false).title("\ud130\ubbf8\ub110").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions seonghwang_stopMarker = new MarkerOptions().position(seonghwang_stop).draggable(false).title("\uc131\ud669\ub3d9 \uc2e0\ud611").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions jeailgo_stopMarker = new MarkerOptions().position(jeilgo_stop).draggable(false).title("\uc81c\uc77c\uace0 \ub9de\uc740\ud3b8").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions wongseonggs_stopMarker = new MarkerOptions().position(wongseonggs_stop).draggable(false).title("\uc6d0\uc131\ub3d9 GS\ub9c8\ud2b8").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions samyong_stopMarker = new MarkerOptions().position(samyong_stop).draggable(false).title("\uc0bc\ub8e1\uad50").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
+        MarkerOptions guseonggs_stopMarker = new MarkerOptions().position(guseonggs_stop).draggable(false).title("\uad6c\uc131\ub3d9").icon(BitmapDescriptorFactory.fromResource(R.drawable.busstop));
         this.mMap.addMarker(kut_stopMarker).showInfoWindow();
         this.mMap.addMarker(terminal_stopMarker);
         this.mMap.addMarker(seonghwang_stopMarker);
@@ -283,13 +240,13 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
             this.in = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             this.timer = new Timer();
             this.timer.schedule(new UpdateGPSTask(), 0, 500);
-            Toast.makeText(this, "\uc11c\ubc84\ub85c\ubd80\ud130 GPS \uc815\ubcf4\ub97c \ubc1b\uae30 \uc2dc\uc791\ud588\uc2b5\ub2c8\ub2e4.", 0).show();
+            Toast.makeText(this, "\uc11c\ubc84\ub85c\ubd80\ud130 GPS \uc815\ubcf4\ub97c \ubc1b\uae30 \uc2dc\uc791\ud588\uc2b5\ub2c8\ub2e4.", Toast.LENGTH_SHORT).show();
         } catch (UnknownHostException e) {
             System.err.println("Unknown host: " + hostName);
-            Toast.makeText(this, "Unknown host: " + hostName, 0).show();
+            Toast.makeText(this, "Unknown host: " + hostName, Toast.LENGTH_SHORT).show();
         } catch (IOException e2) {
             System.err.println("Couldn't get I/O for the connection to " + hostName);
-            Toast.makeText(this, "Couldn't get I/O for the connection to", 0).show();
+            Toast.makeText(this, "Couldn't get I/O for the connection to", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -320,7 +277,7 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
             this.socket.close();
             this.out.close();
             this.in.close();
-            Toast.makeText(this, "\uc11c\ubc84\uc640\uc758 \uc5f0\uacb0\uc774 \uc885\ub8cc\ub410\uc2b5\ub2c8\ub2e4.", 0).show();
+            Toast.makeText(this, "\uc11c\ubc84\uc640\uc758 \uc5f0\uacb0\uc774 \uc885\ub8cc\ub410\uc2b5\ub2c8\ub2e4.", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -329,25 +286,25 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
     public void onCourseSelected(DialogFragment dialog, int selected) {
         Intent intent = null;
         switch (selected) {
-            case Phone.UNKNOWN /*0*/:
+            /*case 0:
                 intent = new Intent(this, BusStop.class);
                 break;
-            case CompletionEvent.STATUS_FAILURE /*1*/:
+            case 1:
                 intent = new Intent(this, CheonanBusStop.class);
                 break;
-            case CompletionEvent.STATUS_CONFLICT /*2*/:
+            case 2:
                 break;
-            case CompletionEvent.STATUS_CANCELED /*3*/:
+            case 3:
                 intent = new Intent(this, DujeongBusStop.class);
                 break;
-            case Barcode.PHONE /*4*/:
+            case 4:
                 intent = new Intent(this, KTXBusStop.class);
                 break;
-            case Barcode.PRODUCT /*5*/:
+            case 5:
                 intent = new Intent(this, ShinbangBusStop.class);
                 break;
             default:
-                return;
+                return;*/
         }
         if (intent != null) {
             startActivity(intent);
@@ -379,7 +336,7 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        View customView = LayoutInflater.from(this).inflate(C0177R.layout.actionbar_layout, this.mBusStopLayout, false);
+        View customView = LayoutInflater.from(this).inflate(R.layout.actionbar_layout, this.mBusStopLayout, false);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayShowHomeEnabled(false);
@@ -387,15 +344,15 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
             actionBar.setCustomView(customView);
             actionBar.setDisplayShowCustomEnabled(true);
         }
-        ((TextView) findViewById(C0177R.id.text_selected)).setText("\ud130\ubbf8\ub110");
+        ((TextView) findViewById(R.id.text_selected)).setText("\ud130\ubbf8\ub110");
         return super.onCreateOptionsMenu(menu);
     }
 
     public void onOptionsItemSelected(View view) {
         switch (view.getId()) {
-            case C0177R.id.ic_directions_black /*2131558507*/:
+            case R.id.ic_directions_black /*2131558507*/:
                 this.newFragment.show(getFragmentManager(), "course");
-            case C0177R.id.ic_place_black /*2131558509*/:
+            case R.id.ic_place_black /*2131558509*/:
                 this.newFragment.show(getFragmentManager(), "terminal");
             default:
         }
@@ -403,7 +360,7 @@ public class TerminalBusStop extends AppCompatActivity implements DialogListener
 
     public void onClickBusLocation(View view) {
         if (this.latitude != null && this.longitude != null) {
-            this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(this.latitude).doubleValue(), Double.valueOf(this.longitude).doubleValue()), 18.0f));
+            this.mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(this.latitude), Double.valueOf(this.longitude)), 18.0f));
         }
     }
 }

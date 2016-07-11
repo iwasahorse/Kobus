@@ -8,9 +8,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
-import com.google.android.gms.drive.events.CompletionEvent;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.Barcode.Phone;
 
 public class CourseDialogFragment extends DialogFragment {
     private boolean course;
@@ -47,76 +44,33 @@ public class CourseDialogFragment extends DialogFragment {
         int array = 0;
         String tag = getTag();
         boolean z = true;
-        switch (tag.hashCode()) {
-            case -1354571749:
-                if (tag.equals("course")) {
-                    z = false;
-                    break;
-                }
-                break;
-            case -1181248900:
-                if (tag.equals("terminal")) {
-                    z = true;
-                    break;
-                }
-                break;
-            case -518507662:
-                if (tag.equals("shinbang")) {
-                    z = true;
-                    break;
-                }
-                break;
-            case 96673:
-                if (tag.equals("all")) {
-                    z = true;
-                    break;
-                }
-                break;
-            case 106543:
-                if (tag.equals("ktx")) {
-                    z = true;
-                    break;
-                }
-                break;
-            case 742674156:
-                if (tag.equals("cheonan")) {
-                    z = true;
-                    break;
-                }
-                break;
-            case 2006677852:
-                if (tag.equals("dujeong")) {
-                    z = true;
-                    break;
-                }
-                break;
-        }
-        switch (z) {
-            case Phone.UNKNOWN /*0*/:
-                array = C0177R.array.array_course;
+
+        switch (array) {
+            case 0:
+                array = R.array.array_course;
                 titleMessage = "\ucf54\uc2a4\ub97c \uc120\ud0dd\ud558\uc138\uc694";
                 this.course = true;
                 break;
-            case CompletionEvent.STATUS_FAILURE /*1*/:
-                array = C0177R.array.array_all_stops;
+            case 1:
+                array = R.array.array_all_stops;
                 break;
-            case CompletionEvent.STATUS_CONFLICT /*2*/:
-                array = C0177R.array.array_cheonan_stops;
+            case 2:
+                array = R.array.array_cheonan_stops;
                 break;
-            case CompletionEvent.STATUS_CANCELED /*3*/:
-                array = C0177R.array.array_terminal_stops;
+            case 3:
+                array = R.array.array_terminal_stops;
                 break;
-            case Barcode.PHONE /*4*/:
-                array = C0177R.array.array_dujeong_stops;
+            case 4:
+                array = R.array.array_dujeong_stops;
                 break;
-            case Barcode.PRODUCT /*5*/:
-                array = C0177R.array.array_ktx_stops;
+            case 5:
+                array = R.array.array_ktx_stops;
                 break;
-            case Barcode.SMS /*6*/:
-                array = C0177R.array.array_shinbang_stops;
+            case 6:
+                array = R.array.array_shinbang_stops;
                 break;
             default:
-                Log.i(MediaRouteProviderProtocol.SERVICE_DATA_ERROR, "dialog tag error");
+                Log.i("TEST", "dialog tag error");
                 break;
         }
         Builder builder = new Builder(getActivity());
