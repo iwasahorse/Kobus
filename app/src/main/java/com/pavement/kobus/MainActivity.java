@@ -11,9 +11,9 @@ import android.widget.Button;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends AppCompatActivity {
-    private Button busstop_button;
-    private Button passenger_button;
-    private Button timetable_button;
+    private Button buttonBusstop;
+    private Button buttonPassenger;
+    private Button buttonTimetable;
 
     private OnClickListener onClickListenerBusStop = new OnClickListener() {
         @Override
@@ -61,13 +61,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
-        this.timetable_button = (Button) findViewById(R.id.bus_timetable);
-        this.busstop_button = (Button) findViewById(R.id.search_busstop);
-        this.passenger_button = (Button) findViewById(R.id.passengers_search);
+        buttonTimetable = (Button) findViewById(R.id.bus_timetable);
+        buttonBusstop = (Button) findViewById(R.id.search_busstop);
+        buttonPassenger = (Button) findViewById(R.id.passengers_search);
         if (MyService.isServiceAlarmOn(getBaseContext())) {
             MyService.setServiceAlarm(getBaseContext(), false);
         }
 
+        buttonBusstop.setOnClickListener(onClickListenerBusStop);
         /*this.timetable_button.setOnClickListener(new C01731());
         this.passenger_button.setOnClickListener(new C01753());*/
     }

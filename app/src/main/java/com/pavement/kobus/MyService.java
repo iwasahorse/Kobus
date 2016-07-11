@@ -40,6 +40,7 @@ public class MyService extends IntentService {
         this.connected = false;
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();

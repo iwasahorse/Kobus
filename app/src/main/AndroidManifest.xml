@@ -21,7 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <service android:name=".MyService" />
+        <activity android:theme="@style/AppTheme" android:name=".BusStop" />
+        <activity android:theme="@style/AppTheme" android:name=".TerminalBusStop" />
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAr5UxAELqQENdCce9lnlVtqsrEt21zjMA" />
         <service android:name="com.google.android.gms.measurement.AppMeasurementService" android:enabled="true" android:exported="false" />
     </application>

@@ -5,25 +5,19 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.util.Log;
 
-public class CourseDialogFragment extends DialogFragment {
+public class CourseDialogFragment extends DialogFragment implements DialogInterface.OnClickListener{
     private boolean course;
     DialogListener mListener;
 
-    /* renamed from: com.example.busclient.CourseDialogFragment.1 */
-    class C01681 implements OnClickListener {
-        C01681() {
-        }
-
-        public void onClick(DialogInterface dialog, int which) {
-            if (CourseDialogFragment.this.course) {
-                CourseDialogFragment.this.mListener.onCourseSelected(CourseDialogFragment.this, which);
-            } else {
-                CourseDialogFragment.this.mListener.onStopSelected(which);
-            }
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        if (course) {
+            CourseDialogFragment.this.mListener.onCourseSelected(CourseDialogFragment.this, which);
+        } else {
+            CourseDialogFragment.this.mListener.onStopSelected(which);
         }
     }
 
@@ -43,13 +37,12 @@ public class CourseDialogFragment extends DialogFragment {
         String titleMessage = "\uc815\ub958\uc7a5\uc744 \uc120\ud0dd\ud558\uc138\uc694";
         int array = 0;
         String tag = getTag();
-        boolean z = true;
 
         switch (array) {
             case 0:
                 array = R.array.array_course;
                 titleMessage = "\ucf54\uc2a4\ub97c \uc120\ud0dd\ud558\uc138\uc694";
-                this.course = true;
+                course = true;
                 break;
             case 1:
                 array = R.array.array_all_stops;
@@ -74,7 +67,7 @@ public class CourseDialogFragment extends DialogFragment {
                 break;
         }
         Builder builder = new Builder(getActivity());
-        builder.setTitle(titleMessage).setItems(array, new C01681());
+        builder.setTitle(titleMessage).setItems(array, this);
         return builder.create();
     }
 
