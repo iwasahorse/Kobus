@@ -11,9 +11,16 @@ import android.widget.Button;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends AppCompatActivity {
-    Button busstop_button;
-    Button passenger_button;
-    Button timetable_button;
+    private Button busstop_button;
+    private Button passenger_button;
+    private Button timetable_button;
+
+    private OnClickListener onClickListenerBusStop = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            MainActivity.this.startActivity(new Intent(MainActivity.this, BusStop.class));
+        }
+    };
 
     /* renamed from: com.example.busclient.MainActivity.1 */
     /*class C01731 implements OnClickListener {
@@ -60,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         if (MyService.isServiceAlarmOn(getBaseContext())) {
             MyService.setServiceAlarm(getBaseContext(), false);
         }
+
         /*this.timetable_button.setOnClickListener(new C01731());
-        this.busstop_button.setOnClickListener(new C01742());
         this.passenger_button.setOnClickListener(new C01753());*/
     }
 }
